@@ -1,0 +1,55 @@
+@startuml
+
+State Market {
+  State Channel {
+    State Effect 
+  }
+  State Exposure
+  State Competitor
+  State "External\nVariables" as EV
+}
+
+State Customer {
+  State Preferences
+  State "Brand\nAffinity" as AF
+  State "Action" as CA
+  State Trigger
+  State Influence
+}
+
+State SalesOrg {
+  State Contact
+  State "Historical Data" as HD
+  State "New Data" as ND
+  State Research
+  State Analysis
+  State Model
+  State Decision
+  State "Action" as SA
+}
+
+
+Preferences --> AF
+Influence --> AF : Inertia
+AF --> CA
+Trigger --> CA
+
+CA --> Contact
+Contact -up-> ND
+Research -up-> ND
+
+HD --> Analysis
+ND -up-> Analysis
+Analysis -r-> Model
+Model -up-> Decision
+Decision --> SA
+
+Preferences --> Research
+Competitor -l-> Effect
+SA --> Effect
+EV --> Effect
+Effect --> Exposure
+Exposure --> Influence
+Exposure --> Preferences
+Exposure --> Trigger
+@enduml
